@@ -11,7 +11,8 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: authMiddleware,
+  context: authMiddleware,
+  csrfPrevention: true,
 });
 
 
