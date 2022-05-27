@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useSapollotate, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { searchGoogleBooks } from '../utils/API';
+// import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
+
+const searchGoogleBooks = (query) => {
+  return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+};
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -38,7 +42,7 @@ const SearchBooks = () => {
       }
 
       const { items } = await response.json();
-
+      // Getting Google Books API returns 
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ['No author to display'],
