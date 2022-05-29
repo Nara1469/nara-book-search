@@ -21,7 +21,7 @@ const resolvers = {
       // Return an `Auth` object that consists of the signed token and user's information
       return ({ token, user });
     },
-    login: async (parent, { email, password }) => {
+    loginUser: async (parent, { email, password }) => {
       // const user = await User.findOne({ $or: [{ username: args.username }, { email: args.email }] });
       const user = await User.findOne({ email });
 
