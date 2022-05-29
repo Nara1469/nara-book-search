@@ -55,10 +55,10 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeBook: async (parent, { userId, bookId }, context) => {
+    removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: userId },
+          { _id: context.user._id },
           { $pull: { savedBooks: { bookId: bookId } } },
           // Return the newly updated object instead of the original
           { new: true }
