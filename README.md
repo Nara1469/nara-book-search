@@ -1,6 +1,6 @@
 # nara-book-search
 
-MERN stack app
+MERN Stack App for Book Search Engine using Google Books API
 
 # 21 MERN: Book Search Engine
 
@@ -15,15 +15,17 @@ MERN stack app
 
 ## About Task
 
-Take starter code with a fully functioning Google Books API search engine built with a RESTful API, and refactor it to be a GraphQL API built with Apollo Server. The app was built using the MERN stack with a React front end, MongoDB database, and Node.js/Express.js server and API. It's already set up to allow users to save book searches to the back end. 
+I refactored this application to a GraphQL API built with Apollo Server from a fully functioning Google Books API search engine built with a RESTful API. The app was built using the MERN stack with a React front end, MongoDB database, and Node.js/Express.js server and API. 
 
-To complete the assignment, you’ll need to do the following:
+To complete the assignment, the following tasks are done:
 
 1. Set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
 
-2. Modify the existing authentication middleware so that it works in the context of a GraphQL API.
+2. Modified the existing authentication middleware so that it works in the context of a GraphQL API.
 
-3. Create an Apollo Provider so that requests can communicate with an Apollo Server.
+3. Implemented an Apollo Provider so that requests can communicate with an Apollo Server.
+
+**Important**: This app is deployed to Heroku with a MongoDB database using MongoDB Atlas.  
 
 ## User Story
 
@@ -33,63 +35,59 @@ I WANT to search for new books to read
 SO THAT I can keep a list of books to purchase
 ```
 
-## Acceptance Criteria
-
-```md
-GIVEN a book search engine
-WHEN I load the search engine
-THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
-WHEN I click on the Search for Books menu option
-THEN I am presented with an input field to search for books and a submit button
-WHEN I am not logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
-WHEN I click on the Login/Signup menu option
-THEN a modal appears on the screen with a toggle between the option to log in or sign up
-WHEN the toggle is set to Signup
-THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
-WHEN the toggle is set to Login
-THEN I am presented with two inputs for an email address and a password and login button
-WHEN I enter a valid email address and create a password and click on the signup button
-THEN my user account is created and I am logged in to the site
-WHEN I enter my account’s email address and password and click on the login button
-THEN I the modal closes and I am logged in to the site
-WHEN I am logged in to the site
-THEN the menu options change to Search for Books, an option to see my saved books, and Logout
-WHEN I am logged in and enter a search term in the input field and click the submit button
-THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
-WHEN I click on the Save button on a book
-THEN that book’s information is saved to my account
-WHEN I click on the option to see my saved books
-THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
-WHEN I click on the Remove button on a book
-THEN that book is deleted from my saved books list
-WHEN I click on the Logout button
-THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
-```
-
 ## Getting Started
 
-In order for this application to use a GraphQL API, you’ll need to refactor the API to use GraphQL on the back end and add some functionality to the front end. The following sections contain details about the files you’ll need to modify on the back end and the front end.
+This application’s folder structure follows a full-stack app divided by client (front-end) and server (back-end) directories. This application uses the following packages and dependencies: 
 
-**Important**: Make sure to study the application before building upon it. Better yet, start by making a copy of it. It's already a working application&mdash;you're converting it from RESTful API practices to a GraphQL API.
+* /client - side
 
-### Back-End Specifications
+  - [apollo-client](https://www.apollographql.com/docs/react/) is a comprehensive state management library to manage both local and remote data with GraphQL. 
+  - [graphql](https://www.npmjs.com/graphql) is a query language for APIs and a runtime for fulfilling queries with the app's existing data. 
+  - [jwt-decode](https://jwt.io/) JSON Web Token (JWT) is for securely transmitting information between parties as a JSON object.
+  - [react](https://reactjs.org/) is a JavaScript library for building UIs
+  - [react-dom](https://reactjs.org/docs/react-dom.html) package provides DOM-specific methods that can be used at the top level of our app and as an escape hatch to get outside the React model
+  - [react-router-dom](https://www.npmjs.com/package/react-router-dom) contains bindings for using React Router in web applications
+  - [react-bootstrap](https://www.npmjs.com/package/react-bootstrap) replaces the Bootstrap JavaScript for styling.
+  - [react-error-overlay](https://www.npmjs.com/package/react-error-overlay?activeTab=versions) is used to debug front-end code.
 
-You’ll need to complete the following tasks in each of these back-end files:
+* /server - side
 
-* `auth.js`: Update the auth middleware function to work with the GraphQL API.
+  - [apollo-server-express](https://www.npmjs.com/package/apollo-server-express) is for the Express integration of Apollo Server
+  - [graphql](https://www.npmjs.com/graphql) is a general-purpose library and can be used both in a Node server and in the browser
+  - [express](https://www.npmjs.com/package/express) is to provide tooling for HTTP servers, making it a great solution for single-page applications, websites, hybrids, or public HTTP APIs
+  - [mongoose](https://www.npmjs.com/package/mongoose) is a MongoDB object modeling tool designed to work in an asynchronous environment
+  - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)  is a compact URL-safe means of representing claims to be transferred between two parties
+  - [dotenv package](https://www.npmjs.com/package/dotenv) to use environment variables
+  - [bcrypt package](https://www.npmjs.com/package/bcrypt) to hash passwords
 
-* `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
+**Note**: The [concurrently](https://www.npmjs.com/package/concurrently) is an npm package that allows us to run multiple commands concurrently. This dev dependency package is used during the development stage.
 
-* `Schemas` directory:
+## Database Models
 
-	* `index.js`: Export your typeDefs and resolvers.
+### Database: `book-database` 
 
-	* `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
+This MongoDB database is created using `mongoose` ODM library. Mongoose provides a straight-forward, schema-based solution to model data.
 
-		**Hint**: Use the functionality in the `user-controller.js` as a guide.
+### Models:
 
-	* `typeDefs.js`: Define the necessary `Query` and `Mutation` types:
+- User (referenced document)
+- Book (SCHEMA ONLY - embedded document) 
+
+If you want to see more about the Model Schema, check out [here](https://github.com/Nara1469/nara-book-search/wiki/Models "link to Models").
+
+### Schemas:
+
+To replace the existing RESTful API with the GraphQL API, the following changes were made in the Schemas in the back-end and added custom GraphQL queries and mutations in the front-end.
+
+  * Back-End: In the server side, an Apollo Server needs to be defined in schema settings with resolvers and typeDefs
+
+	* `index.js`: Export own typeDefs and resolvers.
+
+	* `resolvers.js`: Defined the query and mutation functionality to work with the Mongoose models.
+
+		**Hint**: Used the functionality in the `user-controller.js` as a guide.
+
+	* `typeDefs.js`: Defined the necessary `Query` and `Mutation` types:
 
 		* `Query` type:
 
@@ -101,7 +99,7 @@ You’ll need to complete the following tasks in each of these back-end files:
 
 			* `addUser`: Accepts a username, email, and password as parameters; returns an `Auth` type.
 
-			* `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. (Look into creating what's known as an `input` type to handle all of these parameters!)
+			* `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. 
 
 			* `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
 			
@@ -115,7 +113,7 @@ You’ll need to complete the following tasks in each of these back-end files:
 
 			* `bookCount`
 
-			* `savedBooks` (This will be an array of the `Book` type.)
+			* `savedBooks` (an array of the `Book` type.)
 
 		* `Book` type:
 
@@ -137,60 +135,54 @@ You’ll need to complete the following tasks in each of these back-end files:
 
 			* `user` (References the `User` type.)
 
+  * Front-End: In the client side, an Apollo Server uses GraphQL queries and mutations to fetch and modify data
 
-### Front-End Specifications
+	* `queries.js`: The query `GET_ME` execute the `me` query set up using Apollo Server.
 
-You'll need to create the following front-end files:
+	* `mutations.js`:
 
-* `queries.js`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
+		* `LOGIN_USER` execute the `loginUser` mutation set up using Apollo Server.
 
-* `mutations.js`:
+		* `ADD_USER` execute the `addUser` mutation.
 
-	* `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
+		* `SAVE_BOOK` execute the `saveBook` mutation.
 
-	* `ADD_USER` will execute the `addUser` mutation.
+		* `REMOVE_BOOK` execute the `removeBook` mutation.
 
-	* `SAVE_BOOK` will execute the `saveBook` mutation.
+## My Solution
 
-	* `REMOVE_BOOK` will execute the `removeBook` mutation.
+To replace the existing RESTful API with the GraphQL API, the following changes made both in the back-end and front-end:
+  * Added Schemas with resolvers and typeDefs in the back-end to replace the Routes and Controllers of the existing code.
+  * Added own GraphQL queries and mutations in the front-end to replace API.js of the existing code. 
 
-Additionally, you’ll need to complete the following tasks in each of these front-end files:
+### Back-End Completions
 
-* `App.js`: Create an Apollo Provider to make every request work with the Apollo Server.
+* Implemented an Apollo Server and apply it to the Express.js server as middleware. `server.js`
+
+* Modified the existing authentication middleware to work in the context of a GraphQL API. `auth.js`
+
+### Front-End Completions
+
+* Added an Apollo Provider so that the application can communicate with the Apollo Server. `App.js`
 	
 * `SearchBooks.js`:
 
-	* Use the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function instead of the `saveBook()` function imported from the `API` file.
+	* Replaced the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function instead of the `saveBook()` function imported from the `API` file.
 
-	* Make sure you keep the logic for saving the book's ID to state in the `try...catch` block! 
+	* Copied the `searchGoogleBooks()` function imported from the `API` file, then added in `SearchBooks.js`.
 
 * `SavedBooks.js`:
 
-	* Remove the `useEffect()` Hook that sets the state for `UserData`.
+	* Replaced the `useEffect()` Hook that sets the state for `userData` to `userDataLength`. 
 
-	* Instead, use the `useQuery()` Hook to execute the `GET_ME` query on load and save it to a variable named `userData`.
+	* Added the `useQuery()` Hook to execute the `GET_ME` query on load and save it to a variable named `userData` instead of the `useEffect()` Hook that sets the state for `UserData`. 
 
-	* Use the `useMutation()` Hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from `API` file. (Make sure you keep the `removeBookId()` function in place!)
+	* Added the `useMutation()` Hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from `API` file.
 
-* `SignupForm.js`: Replace the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
+* `SignupForm.js`: Replaced the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
 
-* `LoginForm.js`: Replace the `loginUser()` functionality imported from the `API` file with the `LOGIN_USER` mutation functionality.
+* `LoginForm.js`: Replaced the `loginUser()` functionality imported from the `API` file with the `LOGIN_USER` mutation functionality.
 
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the preceding acceptance criteria plus the following:
-
-	* Has an Apollo Server that uses GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API.
-
-	* Use an Apollo Server and apply it to the Express.js server as middleware.
-
-	* Include schema settings for resolvers and typeDefs as outlined in the Challenge instructions.
-
-	* Modify the existing authentication middleware to work in the context of a GraphQL API.
-
-	* Use an Apollo Provider so that the application can communicate with the Apollo Server.
-
-	* Application must be deployed to Heroku.
 
 ## Live
 
@@ -198,14 +190,14 @@ This web application is deployed to Heroku.com. Here is a link to the deployed w
 
 If you have any questions about the repo, open an issue or contact me directly at naraamtm@gmail.com. Here is a link to this application repo on [GitHub](https://github.com/Nara1469/nara-book-search).
 
-As you can see in the following animation, a user can type a search term (in this case, "star wars") in a search box and the results appear:
+A user can type a search term (in this case, "star wars") in a search box and the results appear:
 
-![Animation shows "star wars" typed into a search box and books about Star Wars appearing as results.](./Assets/21-mern-homework-demo-01.gif)
+![Animation shows "star wars" typed into a search box and books about Star Wars appearing as results.](./assets/21-mern-homework-demo-01.gif)
 
 The user can save books by clicking "Save This Book!" under each search result, as shown in the following animation:
 
-![Animation shows user clicking "Save This Book!" button to save books that appear in search results. The button label changes to "Book Already Saved" after it is clicked and the book is saved.](./Assets/21-mern-homework-demo-02.gif)
+![Animation shows the user clicking "Save This Book!" button to save books that appear in search results. The button label changes to "Book Already Saved" after it is clicked and the book is saved.](./assets/21-mern-homework-demo-02.gif)
 
-A user can view their saved books on a separate page, as shown in the following animation:
+The user can view their saved books on a separate page, as shown in the following animation:
 
-![The Viewing Lernantino's Books page shows the books that the user Lernaninto has saved.](./Assets/21-mern-homework-demo-03.gif)
+![The Viewing Lernantino's Books page shows the books that the user Lernaninto has saved.](./assets/21-mern-homework-demo-03.gif)
