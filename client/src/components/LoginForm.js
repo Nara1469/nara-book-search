@@ -24,6 +24,7 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+    setValidated(true);
 
     console.log(userFormData);
     try {
